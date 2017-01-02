@@ -1,0 +1,5 @@
+@ECHO Vypnuti WSUS serveru
+NET STOP WUAUSERV && REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v UseWUServer /t REG_DWORD /d 0 /f && NET START WUAUSERV 
+
+@ECHO Zapnuti WSUS serveru
+NET STOP WUAUSERV && REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU /v UseWUServer /t REG_DWORD /d 1 /f && NET START WUAUSERV 
