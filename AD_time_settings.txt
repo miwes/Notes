@@ -1,0 +1,10 @@
+# Jak najit PDC
+DSQUERY server -hasfsmo PDC
+
+# nastaveni casoveho serveru
+w32tm /config /syncfromflags:MANUAL /manualpeerlist:tik.cesnet.cz
+nebo
+net time /set tik.cesnet.cz
+
+# restart sluzby
+Net stop w32time && net start w32time

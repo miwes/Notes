@@ -1,0 +1,7 @@
+CREATOR OWNER – Full Control (Apply onto: Subfolders and Files Only)
+System – Full Control (Apply onto: This Folder, Subfolders and Files)
+Domain Admins – Full Control (Apply onto: This Folder, Subfolders and Files)
+Everyone – Create Folder/Append Data (Apply onto: This Folder Only)
+Everyone – List Folder/Read Data (Apply onto: This Folder Only)
+Everyone – Read Attributes (Apply onto: This Folder Only)
+Everyone – Traverse Folder/Execute File (Apply onto: This Folder Only)
