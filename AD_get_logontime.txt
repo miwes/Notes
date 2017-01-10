@@ -1,0 +1,4 @@
+# https://social.technet.microsoft.com/wiki/contents/articles/22461.understanding-the-ad-account-attributes-lastlogon-lastlogontimestamp-and-lastlogondate.aspx
+
+Get-Aduser -Filter * -Properties SamAccountName,mail,description,created,enabled,lastLogontimeStamp | Select-Object -Property SamAccountName,mail,description,created,enabled,@{"Name"="Last logon";Expression={[datetime]::FromFileTime($_.'lastLogontimeStamp')}} 
+

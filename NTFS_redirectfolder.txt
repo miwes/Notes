@@ -1,7 +1,44 @@
-CREATOR OWNER – Full Control (Apply onto: Subfolders and Files Only)
-System – Full Control (Apply onto: This Folder, Subfolders and Files)
-Domain Admins – Full Control (Apply onto: This Folder, Subfolders and Files)
-Everyone – Create Folder/Append Data (Apply onto: This Folder Only)
-Everyone – List Folder/Read Data (Apply onto: This Folder Only)
-Everyone – Read Attributes (Apply onto: This Folder Only)
-Everyone – Traverse Folder/Execute File (Apply onto: This Folder Only)
+CREATOR OWNER   Full Control                    (Apply onto: Subfolders and Files Only)
+System          Full Control                    (Apply onto: This Folder, Subfolders and Files)
+Domain Admins   Full Control                    (Apply onto: This Folder, Subfolders and Files)
+Everyone        Create Folder/Append Data       (Apply onto: This Folder Only)
+Everyone        List Folder/Read Data           (Apply onto: This Folder Only)
+Everyone        Read Attributes                 (Apply onto: This Folder Only)
+Everyone        Traverse Folder/Execute File    (Apply onto: This Folder Only)
+
+
+# http://developers.de/blogs/damir_dobric/archive/2007/06/18/directory-security-and-access-rules.aspx
+
+[string]$folder = 'C:\temp\Autocont'
+
+$currentACL = Get-Acl $folder
+$objType =[System.Security.AccessControl.AccessControlType]::Allow 
+
+# turn off Inheritance
+$currentACL.SetAccessRuleProtection($true,$false)
+
+$objUser = 'CREATOR OWNER'
+$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit
+$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::InheritOnly 
+$objACE = New-Object System.Security.AccessControl.FileSystemAccessRule ($objUser, 'FullControl', $InheritanceFlag, $PropagationFlag, $objType)
+$currentACL.SetAccessRule($objACE)
+
+$objUser = 'SYSTEM'
+$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit
+$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::None 
+$objACE = New-Object System.Security.AccessControl.FileSystemAccessRule ($objUser, 'FullControl', $InheritanceFlag, $PropagationFlag, $objType)
+$currentACL.SetAccessRule($objACE)
+
+$objUser = New-Object System.Security.Principal.NTAccount('AUTOCONT.cz\Domain Admins')
+$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::ContainerInherit -bor [System.Security.AccessControl.InheritanceFlags]::ObjectInherit
+$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::None 
+$objACE = New-Object System.Security.AccessControl.FileSystemAccessRule ($objUser, 'FullControl', $InheritanceFlag, $PropagationFlag, $objType)
+$currentACL.SetAccessRule($objACE)
+
+$objUser = New-Object System.Security.Principal.NTAccount('AUTOCONT.cz\Domain users')
+$InheritanceFlag = [System.Security.AccessControl.InheritanceFlags]::None
+$PropagationFlag = [System.Security.AccessControl.PropagationFlags]::NoPropagateInherit 
+$objACE = New-Object System.Security.AccessControl.FileSystemAccessRule ($objUser, ' ReadData, AppendData, ExecuteFile, ReadAttributes, Synchronize', $InheritanceFlag, $PropagationFlag, $objType)
+$currentACL.SetAccessRule($objACE)
+
+Set-ACL $folder $currentACL
