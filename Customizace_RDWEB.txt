@@ -1,0 +1,38 @@
+###################################################################################################
+# automaticke pridani domeny do logon dialogu
+
+
+Soubor: C:\Windows\Web\RDWeb\Pages\webscripts-domain.js
+
+Zmenit toto:
+     strDomainUserName = objForm.elements["DomainUserName"].value;
+	 
+Na:
+	strDomainUserName = objForm.elements["DomainUserName"].value;
+	if ( strDomainUserName.indexOf("\\") == -1 )
+	{
+		strDomainUserName = "DOMENA\\" + strDomainUserName;
+		objForm.elements("DomainUserName").value = strDomainUserName;
+	}
+
+Zmenit popisky:
+	C:\Windows\Web\RDWeb\Pages\en-US\login.aspx
+	C:\Windows\Web\RDWeb\Pages\cs-CZ\login.aspx
+	
+###################################################################################################
+# Nastavit defaultně „This is a private computer“
+
+Soubor: C:\Windows\Web\RDWeb\Pages\webscripts-domain.js
+
+Zmenit:
+document.getElementById("rdoPblc").checked = true;
+Na
+document.getElementById("rdoPrvt").checked = true;
+
+###################################################################################################
+# Nastavit pouze „Toto je veřejný nebo sdílený počítač“
+
+Soubor: login.aspx
+Zmenit radky > 523, 532, 536, 556, 576 a 587
+z <tr> na <tr style="display:none">
+
