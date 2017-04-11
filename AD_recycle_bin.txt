@@ -1,0 +1,5 @@
+# zapnuti AD kose
+Enable-ADOptionalFeature –Identity "CN=Recycle Bin Feature,CN=Optional Features,CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=firma,DC=cz" –Scope ForestOrConfigurationSet –Target "firma.cz"
+
+# doba obnoveni
+Set-ADObject -Identity "CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=firma,DC=local" –Partition "CN=Configuration,DC=firma,DC=cz" –Replace:@{"msDS-DeletedObjectLifetime" = 60}
