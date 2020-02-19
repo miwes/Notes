@@ -1,0 +1,18 @@
+@ECHO OFF
+REM
+REM Cil je nutne zadavat bez posledniho lomitka
+REM 
+
+REM Nastaveni UNICODE
+chcp 65001
+
+SET STARTTIME=%time%
+
+SET SOURCE=\\central\c$\DATA.VOL\meu\mrm
+SET DESTINATION=D:\DATA.VOL\meu\mrm
+SET PARAMETR=/zb /purge /e /copyall /r:3 /w:3 /np /eta
+SET LOGFILE=c:\ac\migrace-mrm.txt
+
+ECHO Start time :%STARTTIME%
+ROBOCOPY "%SOURCE%" "%DESTINATION%" %PARAMETR% /unilog+:"%LOGFILE%"
+ECHO Finish time: %time%

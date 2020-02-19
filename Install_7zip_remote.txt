@@ -1,0 +1,7 @@
+@ECHO On
+SET SERVER=LFL-RDSH41
+ECHO Instaluji na server %SERVER%
+
+copy \\lfl-rds\Install\7z1900-x64.msi \\%SERVER%\c$\temp\
+.\psexec64 \\%SERVER% msiexec /i C:\temp\7z1900-x64.msi ALLUSERS=1 /quiet
+del \\%SERVER%\c$\temp\7z1900-x64.msi
