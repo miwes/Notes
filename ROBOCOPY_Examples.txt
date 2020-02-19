@@ -1,2 +1,0 @@
-# kopirovani adresare /prava /vsechny adresare /kopirovani v backup modu 
-ROBOCOPY c:\zdroj d:\cil /COPYALL /E /ZB 
