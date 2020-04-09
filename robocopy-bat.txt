@@ -2,6 +2,13 @@
 REM
 REM Cil je nutne zadavat bez posledniho lomitka
 REM 
+REM Jak zkopirovat jednoduse prava na root slozku:
+REM $prava = get-acl d:\data
+REM set-acl -aclobject $prava -path d:\novadata
+REM 
+REM Novy share:
+REM New-SMBShare -FullAccess 'authenticated users' -Name 'Data' -Path 'D:\Data' 
+REM 
 
 REM Nastaveni UNICODE
 chcp 65001
